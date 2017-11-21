@@ -56,7 +56,7 @@ class Predict:
             label.append(header[i])
             horse.append(col)
             self.train_target.append(col)
-          elif self.master.has_key(i) :
+          elif i in self.master :
             if i == 1 :
               horse.append(col)
             label.append(header[i])
@@ -80,7 +80,7 @@ class Predict:
     # joblib.dump(model, 'model.pkl') 
     # 素性の重要度（RandomForestの分岐での重要度）
     for i, xi in enumerate(self.model.feature_importances_): 
-      print '{0}\t{1:.1f}%'.format(label[i], xi * 100)
+      print('{0}\t{1:.1f}%'.format(label[i], xi * 100))
 
   def predict(self):
     for i, val in enumerate(self.train_data[self.test_row_no:]):
@@ -90,17 +90,15 @@ class Predict:
         result = "☓"
         if int(predict) == int(self.horse_data[i][3]) :
           result = "○"
-        print '{0} {1}R {2} {3} {4} 実際の着順 : {5}着 {6}'.format(self.horse_data[i][0],
+        print ('{0} {1}R {2} {3} {4} 実際の着順 : {5}着 {6}'.format(self.horse_data[i][0],
                                                              self.horse_data[i][1],
                                                              self.horse_data[i][2],
                                                              self.horse_data[i][4],
                                                              self.horse_data[i][5],
-                                                             self.horse_data[i][3], result )
+                                                             self.horse_data[i][3], result ))
 
 if __name__ == "__main__":
   predict = Predict()
   predict.train()
   predict.predict()
-
-
 
